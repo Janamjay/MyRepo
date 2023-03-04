@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './index.css';
 
-function App() {
+import { useState } from 'react';
+
+export default function App() {
+  const [array, setArray] = useState([]);
+
+  function handleDel(i) {
+    array.splice(i, 1);
+    setArray([...array]);
+  }
+
+  function handleAdd(i) {
+    let e = prompt('Enter user name');
+    setArray([...array, e]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <button onClick={handleAdd}>Add</button>
+
+      {array.map((e, index) => {
+        return (
+          <>
+            <p>{e}</p>
+            <button onClick={() => handleDel(index)}>Delete</button>
+          </>
+        );
+      })}
+    </React.Fragment>
   );
 }
-
-export default App;
